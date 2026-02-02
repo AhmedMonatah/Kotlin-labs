@@ -71,11 +71,13 @@ fun lab3() {
 
     println("finished")
 }
+
+
 fun main() {
     val n = 6
-    for (i in 0 until n) {
-        val leftSpaces = " ".repeat(n - i )
+    for (i in 0 .. n) {
         val leftStars = "*".repeat(i + 1)
+        val leftSpaces = " ".repeat(n - i )
         val rightStars = (0..i).joinToString(" ") { "*" }
         println("$leftStars$leftSpaces$leftSpaces  $rightStars")
     }

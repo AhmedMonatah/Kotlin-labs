@@ -1,4 +1,7 @@
 package com.example.myapplication
+
+import android.R
+
 abstract class Shape {
     protected  var dimValue: Double = 0.0
 
@@ -16,7 +19,6 @@ class Rectangle : Shape {
     private var width: Double = 0.0
     private var height: Double = 0.0
 
-    constructor()
 
     constructor(w: Double, h: Double) {
         width = w
@@ -38,8 +40,10 @@ class Rectangle : Shape {
 class Circle : Shape {
     private var radius: Double = 0.0
 
-    constructor()
 
+    constructor( name:String,  age:Int){
+
+    }
     constructor(r: Double) {
         radius = r
     }
@@ -80,16 +84,16 @@ class Picture {
 
 fun main(){
 
-    val r = Rectangle(5.0, 4.0)
-    println("Rectangle Area = ${r.calcArea()}")
+    val r = Rectangle(1.87, 2.35)
+    println("rectangle area = ${r.calcArea()}")
 
-    val c = Circle(3.0)
-    println("Circle Area = ${c.calcArea()}")
+    val c = Circle(2.6)
+    println("circle area = ${c.calcArea()}")
 
-    val t = Triangle(6.0, 2.0)
-    println("Triangle Area = ${t.calcArea()}")
+    val t = Triangle(6.8, 2.21)
+    println("triangle area = ${t.calcArea()}")
     val picture = Picture()
     val totalArea = picture.sumAreas(r, c, t)
-    println("Total Area = $totalArea")
+    println("total area = $totalArea")
 
 }
