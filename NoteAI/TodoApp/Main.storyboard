@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tab-bar-controller">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!-- Tab Bar Controller -->
+        <scene sceneID="tab-bar-scene">
+            <objects>
+                <tabBarController id="tab-bar-controller" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="tab-bar-element">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="nav-home" kind="relationship" relationship="viewControllers" id="rel-home"/>
+                        <segue destination="nav-todo" kind="relationship" relationship="viewControllers" id="rel-todo"/>
+                        <segue destination="nav-inprogress" kind="relationship" relationship="viewControllers" id="rel-inprogress"/>
+                        <segue destination="nav-done" kind="relationship" relationship="viewControllers" id="rel-done"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tab-bar-first-mask" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1000" y="0.0"/>
+        </scene>
+
+        <!-- Navigation Home -->
+        <scene sceneID="nav-home-scene">
+            <objects>
+                <navigationController id="nav-home" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="All" image="tray.fill" catalog="system" id="tab-home-item"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nav-home-bar">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="home-vc" kind="relationship" relationship="rootViewController" id="rel-home-root"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nav-home-mask" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-200" y="-400"/>
+        </scene>
+
+        <!-- Home View Controller -->
+        <scene sceneID="home-scene">
+            <objects>
+                <viewController id="home-vc" customClass="HomeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="home-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="170" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="home-table">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="h-header">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="h-filter">
+                                            <rect key="frame" x="16" y="10" width="371" height="31"/>
+                                            <segments>
+                                                <segment title="All"/>
+                                                <segment title="Low"/>
+                                                <segment title="Mid"/>
+                                                <segment title="High"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="priorityFilterChanged:" destination="home-vc" eventType="valueChanged" id="h-act-filt"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="h-filter" firstAttribute="leading" secondItem="h-header" secondAttribute="leading" constant="16" id="hf-l"/>
+                                        <constraint firstAttribute="trailing" secondItem="h-filter" secondAttribute="trailing" constant="16" id="hf-r"/>
+                                        <constraint firstItem="h-filter" firstAttribute="centerY" secondItem="h-header" secondAttribute="centerY" id="hf-c"/>
+                                    </constraints>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TaskCell" id="cell-home" customClass="TaskCell">
+                                        <rect key="frame" x="0.0" y="100" width="393" height="170"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cell-home" id="cnt-home">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="170"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h-card">
+                                                    <rect key="frame" x="18" y="8.5" width="357" height="153"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userLabel="Title" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h-title">
+                                                            <rect key="frame" x="16" y="16" width="325" height="32"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="24"/>
+                                                            <color key="textColor" red="0.1" green="0.1" blue="0.1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userLabel="Desc" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h-desc">
+                                                            <rect key="frame" x="16" y="54" width="325" height="42"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" red="0.15" green="0.15" blue="0.15" alpha="0.85" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userLabel="Date" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h-date">
+                                                            <rect key="frame" x="16" y="110" width="200" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="0.2" green="0.2" blue="0.2" alpha="0.7" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userLabel="Status" hidden="YES" contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="h-status">
+                                                            <rect key="frame" x="0" y="0" width="1" height="1"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="h-title" firstAttribute="leading" secondItem="h-card" secondAttribute="leading" constant="16" id="h-tl"/>
+                                                        <constraint firstAttribute="trailing" secondItem="h-title" secondAttribute="trailing" constant="16" id="h-tr"/>
+                                                        <constraint firstItem="h-title" firstAttribute="top" secondItem="h-card" secondAttribute="top" constant="16" id="h-tt"/>
+                                                        <constraint firstItem="h-desc" firstAttribute="leading" secondItem="h-title" secondAttribute="leading" id="h-dl"/>
+                                                        <constraint firstItem="h-desc" firstAttribute="trailing" secondItem="h-title" secondAttribute="trailing" id="h-dr"/>
+                                                        <constraint firstItem="h-desc" firstAttribute="top" secondItem="h-title" secondAttribute="bottom" constant="6" id="h-dt"/>
+                                                        <constraint firstItem="h-date" firstAttribute="leading" secondItem="h-title" secondAttribute="leading" id="h-dal"/>
+                                                        <constraint firstItem="h-date" firstAttribute="bottom" secondItem="h-card" secondAttribute="bottom" constant="-16" id="h-dab"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="h-card" firstAttribute="width" constant="357" id="h-cw"/>
+                                                <constraint firstItem="h-card" firstAttribute="height" constant="153" id="h-ch"/>
+                                                <constraint firstItem="h-card" firstAttribute="centerX" secondItem="cnt-home" secondAttribute="centerX" id="h-ccx"/>
+                                                <constraint firstItem="h-card" firstAttribute="centerY" secondItem="cnt-home" secondAttribute="centerY" id="h-ccy"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="cardView" destination="h-card" id="out-h-card"/>
+                                            <outlet property="titleLabel" destination="h-title" id="out-h-title"/>
+                                            <outlet property="detailLabel" destination="h-desc" id="out-h-desc"/>
+                                            <outlet property="dateLabel" destination="h-date" id="out-h-date"/>
+                                            <outlet property="statusLabel" destination="h-status" id="out-h-status"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="home-vc" id="home-ds"/>
+                                    <outlet property="delegate" destination="home-vc" id="home-dl"/>
+                                </connections>
+                            </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="home-empty">
+                                <rect key="frame" x="80" y="276" width="233" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tray.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="h-eimg">
+                                        <rect key="frame" x="41.666666666666657" y="21.666666666666657" width="150" height="146.33333333333334"/>
+                                        <color key="tintColor" white="0.6666666666" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="h-eih"/>
+                                            <constraint firstAttribute="width" constant="150" id="h-eiw"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userLabel="EmptyLabel" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Tasks Yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h-etxt">
+                                        <rect key="frame" x="0.0" y="190" width="233" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                        <color key="textColor" white="0.6666666666" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="h-eimg" firstAttribute="centerX" secondItem="home-empty" secondAttribute="centerX" id="h-eicx"/>
+                                    <constraint firstItem="h-eimg" firstAttribute="top" secondItem="home-empty" secondAttribute="top" constant="20" id="h-eit"/>
+                                    <constraint firstItem="h-etxt" firstAttribute="top" secondItem="h-eimg" secondAttribute="bottom" constant="20" id="h-et"/>
+                                    <constraint firstItem="h-etxt" firstAttribute="width" secondItem="home-empty" secondAttribute="width" id="h-etw"/>
+                                    <constraint firstItem="h-etxt" firstAttribute="centerX" secondItem="home-empty" secondAttribute="centerX" id="h-etcx"/>
+                                    <constraint firstAttribute="height" constant="300" id="h-eh"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="home-safe-area"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="home-table" firstAttribute="top" secondItem="home-view" secondAttribute="top" id="h-tbt"/>
+                            <constraint firstItem="home-table" firstAttribute="leading" secondItem="home-view" secondAttribute="leading" id="h-tbl"/>
+                            <constraint firstItem="home-table" firstAttribute="trailing" secondItem="home-view" secondAttribute="trailing" id="h-tbr"/>
+                            <constraint firstItem="home-table" firstAttribute="bottom" secondItem="home-view" secondAttribute="bottom" id="h-tbb"/>
+                            <constraint firstItem="home-empty" firstAttribute="centerX" secondItem="home-view" secondAttribute="centerX" id="h-ecx"/>
+                            <constraint firstItem="home-empty" firstAttribute="centerY" secondItem="home-view" secondAttribute="centerY" id="h-ecy"/>
+                            <constraint firstItem="home-empty" firstAttribute="leading" secondItem="home-safe-area" secondAttribute="leading" constant="80" id="h-el"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="All Tasks" id="home-nav-item">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="add-btn">
+                            <connections><action selector="addClicked:" destination="home-vc" id="act-add"/></connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="tableView" destination="home-table" id="out-home-table"/>
+                        <outlet property="prioritySegmentedControl" destination="h-filter" id="out-h-filt"/>
+                        <outlet property="emptyStateView" destination="home-empty" id="out-home-empty"/>
+                        <outlet property="statusImageView" destination="h-eimg" id="out-h-eimg-v2"/>
+                        <outlet property="statusLabel" destination="h-etxt" id="out-h-etxt-v2"/>
+                        <segue destination="nav-add" kind="presentation" identifier="showAdd" id="segue-home-add"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="home-first-mask" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="600" y="-400"/>
+        </scene>
+
+        <!-- Navigation Add -->
+        <scene sceneID="nav-add-scene">
+            <objects>
+                <navigationController storyboardIdentifier="NavAddVC" id="nav-add" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nav-add-bar">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="add-vc" kind="relationship" relationship="rootViewController" id="rel-add-root"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nav-add-mask" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1400" y="0.0"/>
+        </scene>
+
+        <!-- Add View Controller -->
+        <scene sceneID="add-scene">
+            <objects>
+                <viewController id="add-vc" customClass="AddViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="add-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="add-stack">
+                                <rect key="frame" x="20" y="103" width="353" height="500"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Task Title" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="add-title">
+                                        <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
+                                        <constraints><constraint firstAttribute="height" constant="50" id="title-h"/></constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="add-desc">
+                                        <rect key="frame" x="0.0" y="70" width="353" height="100"/>
+                                        <constraints><constraint firstAttribute="height" constant="100" id="desc-h"/></constraints>
+                                        <color key="backgroundColor" red="0.95" green="0.95" blue="0.95" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" text="Priority" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="add-priority-lbl">
+                                        <rect key="frame" x="0.0" y="190" width="353" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                        <color key="textColor" white="0.3333333333" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="add-priority">
+                                        <rect key="frame" x="0.0" y="230" width="353" height="40"/>
+                                        <constraints><constraint firstAttribute="height" constant="40" id="p-h"/></constraints>
+                                        <segments>
+                                            <segment title="Low"/>
+                                            <segment title="Medium"/>
+                                            <segment title="High"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <label opaque="NO" text="Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="add-status-lbl">
+                                        <rect key="frame" x="0.0" y="290" width="353" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                        <color key="textColor" white="0.3333333333" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </label>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="add-status">
+                                        <rect key="frame" x="0.0" y="330" width="353" height="40"/>
+                                        <constraints><constraint firstAttribute="height" constant="40" id="s-h"/></constraints>
+                                        <segments>
+                                            <segment title="To Do"/>
+                                            <segment title="In Progress"/>
+                                            <segment title="Done"/>
+                                        </segments>
+                                    </segmentedControl>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="add-date">
+                                        <rect key="frame" x="0.0" y="390" width="353" height="110"/>
+                                    </datePicker>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="add-safe-area"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="add-stack" firstAttribute="top" secondItem="add-safe-area" secondAttribute="top" constant="20" id="stack-vbt"/>
+                            <constraint firstItem="add-stack" firstAttribute="leading" secondItem="add-safe-area" secondAttribute="leading" constant="20" id="stack-vbl"/>
+                            <constraint firstAttribute="trailing" secondItem="add-stack" secondAttribute="trailing" constant="20" id="stack-vbr"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Add Task" id="add-nav-item">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="cl-btn">
+                            <connections><action selector="cancelClicked:" destination="add-vc" id="act-cl"/></connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="sv-btn">
+                            <connections><action selector="saveClicked:" destination="add-vc" id="act-sv"/></connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="titleField" destination="add-title" id="out-add-title"/>
+                        <outlet property="descView" destination="add-desc" id="out-add-desc"/>
+                        <outlet property="priorityControl" destination="add-priority" id="out-add-priority"/>
+                        <outlet property="statusControl" destination="add-status" id="out-add-status"/>
+                        <outlet property="datePicker" destination="add-date" id="out-add-date"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="add-mask" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2200" y="0.0"/>
+        </scene>
+
+        <!-- Navigation Todo -->
+        <scene sceneID="nav-todo-scene">
+            <objects>
+                <navigationController id="nav-todo" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="To Do" image="checklist" catalog="system" id="tab-todo-item"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nav-todo-bar">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="todo-vc" kind="relationship" relationship="rootViewController" id="rel-todo-root"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nav-todo-mask" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-200" y="400"/>
+        </scene>
+
+        <!-- Todo View Controller -->
+        <scene sceneID="todo-scene">
+            <objects>
+                <viewController id="todo-vc" customClass="TodoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="todo-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="170" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="todo-table">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="t-header">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="t-filter">
+                                            <rect key="frame" x="16" y="10" width="361" height="31"/>
+                                            <segments>
+                                                <segment title="All"/>
+                                                <segment title="Low"/>
+                                                <segment title="Mid"/>
+                                                <segment title="High"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="priorityFilterChanged:" destination="todo-vc" eventType="valueChanged" id="t-act-filt"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="t-filter" firstAttribute="leading" secondItem="t-header" secondAttribute="leading" constant="16" id="tf-l"/>
+                                        <constraint firstAttribute="trailing" secondItem="t-filter" secondAttribute="trailing" constant="16" id="tf-r"/>
+                                        <constraint firstItem="t-filter" firstAttribute="centerY" secondItem="t-header" secondAttribute="centerY" id="tf-c"/>
+                                    </constraints>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TaskCell" id="cell-todo" customClass="TaskCell">
+                                        <rect key="frame" x="0.0" y="100" width="393" height="170"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cell-todo" id="cnt-todo">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="170"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t-card">
+                                                    <rect key="frame" x="18" y="8.5" width="357" height="153"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userLabel="Title" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t-title">
+                                                            <rect key="frame" x="16" y="16" width="325" height="32"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="24"/>
+                                                            <color key="textColor" red="0.1" green="0.1" blue="0.1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userLabel="Desc" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t-desc">
+                                                            <rect key="frame" x="16" y="54" width="325" height="42"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" red="0.15" green="0.15" blue="0.15" alpha="0.85" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userLabel="Date" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t-date">
+                                                            <rect key="frame" x="16" y="110" width="200" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="0.2" green="0.2" blue="0.2" alpha="0.7" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userLabel="Status" hidden="YES" contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="t-status">
+                                                            <rect key="frame" x="0" y="0" width="1" height="1"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="t-title" firstAttribute="leading" secondItem="t-card" secondAttribute="leading" constant="16" id="t-tl"/>
+                                                        <constraint firstAttribute="trailing" secondItem="t-title" secondAttribute="trailing" constant="16" id="t-tr"/>
+                                                        <constraint firstItem="t-title" firstAttribute="top" secondItem="t-card" secondAttribute="top" constant="16" id="t-tt"/>
+                                                        <constraint firstItem="t-desc" firstAttribute="leading" secondItem="t-title" secondAttribute="leading" id="t-dl"/>
+                                                        <constraint firstItem="t-desc" firstAttribute="trailing" secondItem="t-title" secondAttribute="trailing" id="t-dr"/>
+                                                        <constraint firstItem="t-desc" firstAttribute="top" secondItem="t-title" secondAttribute="bottom" constant="6" id="t-dt"/>
+                                                        <constraint firstItem="t-date" firstAttribute="leading" secondItem="t-title" secondAttribute="leading" id="t-dal"/>
+                                                        <constraint firstItem="t-date" firstAttribute="bottom" secondItem="t-card" secondAttribute="bottom" constant="-16" id="t-dab"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="t-card" firstAttribute="width" constant="357" id="t-cw"/>
+                                                <constraint firstItem="t-card" firstAttribute="height" constant="153" id="t-ch"/>
+                                                <constraint firstItem="t-card" firstAttribute="centerX" secondItem="cnt-todo" secondAttribute="centerX" id="t-ccx"/>
+                                                <constraint firstItem="t-card" firstAttribute="centerY" secondItem="cnt-todo" secondAttribute="centerY" id="t-ccy"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="cardView" destination="t-card" id="out-t-card"/>
+                                            <outlet property="titleLabel" destination="t-title" id="out-t-title"/>
+                                            <outlet property="detailLabel" destination="t-desc" id="out-t-desc"/>
+                                            <outlet property="dateLabel" destination="t-date" id="out-t-date"/>
+                                            <outlet property="statusLabel" destination="t-status" id="out-t-status"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="todo-vc" id="todo-ds"/>
+                                    <outlet property="delegate" destination="todo-vc" id="todo-dl"/>
+                                </connections>
+                            </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="todo-empty">
+                                <rect key="frame" x="80" y="276" width="233" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checklist" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="t-eimg">
+                                        <rect key="frame" x="41.666666666666657" y="20.666666666666657" width="150" height="147.33333333333334"/>
+                                        <color key="tintColor" white="0.6666666666" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="t-eih"/>
+                                            <constraint firstAttribute="width" constant="150" id="t-eiw"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userLabel="EmptyLabel" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Everything Done!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t-etxt">
+                                        <rect key="frame" x="0.0" y="190" width="233" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                        <color key="textColor" white="0.6666666666" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="t-eimg" firstAttribute="centerX" secondItem="todo-empty" secondAttribute="centerX" id="t-eicx"/>
+                                    <constraint firstItem="t-eimg" firstAttribute="top" secondItem="todo-empty" secondAttribute="top" constant="20" id="t-eit"/>
+                                    <constraint firstItem="t-etxt" firstAttribute="top" secondItem="t-eimg" secondAttribute="bottom" constant="20" id="t-et"/>
+                                    <constraint firstItem="t-etxt" firstAttribute="width" secondItem="todo-empty" secondAttribute="width" id="t-etw"/>
+                                    <constraint firstItem="t-etxt" firstAttribute="centerX" secondItem="todo-empty" secondAttribute="centerX" id="t-etcx"/>
+                                    <constraint firstAttribute="height" constant="300" id="t-eh"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="todo-safe-area"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="todo-table" firstAttribute="top" secondItem="todo-view" secondAttribute="top" id="t-vbt"/>
+                            <constraint firstItem="todo-table" firstAttribute="leading" secondItem="todo-view" secondAttribute="leading" id="t-vbl"/>
+                            <constraint firstItem="todo-table" firstAttribute="trailing" secondItem="todo-view" secondAttribute="trailing" id="t-vbr"/>
+                            <constraint firstItem="todo-table" firstAttribute="bottom" secondItem="todo-view" secondAttribute="bottom" id="t-vbb"/>
+                            <constraint firstItem="todo-empty" firstAttribute="centerX" secondItem="todo-view" secondAttribute="centerX" id="t-vcx"/>
+                            <constraint firstItem="todo-empty" firstAttribute="centerY" secondItem="todo-view" secondAttribute="centerY" id="t-vcy"/>
+                            <constraint firstItem="todo-empty" firstAttribute="leading" secondItem="todo-safe-area" secondAttribute="leading" constant="80" id="t-vel"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="To Do" id="todo-nav-item"/>
+                    <connections>
+                        <outlet property="tableView" destination="todo-table" id="out-todo-table"/>
+                        <outlet property="prioritySegmentedControl" destination="t-filter" id="out-t-filt"/>
+                        <outlet property="emptyStateView" destination="todo-empty" id="out-todo-empty"/>
+                        <outlet property="statusImageView" destination="t-eimg" id="out-t-eimg-v2"/>
+                        <outlet property="statusLabel" destination="t-etxt" id="out-t-etxt-v2"/>
+                        <segue destination="nav-add" kind="presentation" identifier="showAdd" id="segue-todo-add"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="todo-mask" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="600" y="400"/>
+        </scene>
+
+        <!-- Navigation Done -->
+        <scene sceneID="nav-done-scene">
+            <objects>
+                <navigationController id="nav-done" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Done" image="checkmark.seal" catalog="system" id="tab-done-item"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nav-done-bar">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="done-vc" kind="relationship" relationship="rootViewController" id="rel-done-root"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nav-done-mask" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-200" y="1200"/>
+        </scene>
+
+        <!-- Done View Controller -->
+        <scene sceneID="done-scene">
+            <objects>
+                <viewController id="done-vc" customClass="DoneViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="done-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="170" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="done-table">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="d-header">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="d-filter">
+                                            <rect key="frame" x="16" y="10" width="361" height="31"/>
+                                            <segments>
+                                                <segment title="All"/>
+                                                <segment title="Low"/>
+                                                <segment title="Mid"/>
+                                                <segment title="High"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="priorityFilterChanged:" destination="done-vc" eventType="valueChanged" id="d-act-filt"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="d-filter" firstAttribute="leading" secondItem="d-header" secondAttribute="leading" constant="16" id="df-l"/>
+                                        <constraint firstAttribute="trailing" secondItem="d-filter" secondAttribute="trailing" constant="16" id="df-r"/>
+                                        <constraint firstItem="d-filter" firstAttribute="centerY" secondItem="d-header" secondAttribute="centerY" id="df-c"/>
+                                    </constraints>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TaskCell" id="cell-done" customClass="TaskCell">
+                                        <rect key="frame" x="0.0" y="100" width="393" height="170"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cell-done" id="cnt-done">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="170"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d-card">
+                                                    <rect key="frame" x="18" y="8.5" width="357" height="153"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userLabel="Title" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d-title">
+                                                            <rect key="frame" x="16" y="16" width="325" height="32"/>
+                                                            <fontDescription key="fontDescription" name="Nunito-Bold" family="Nunito" pointSize="24"/>
+                                                            <color key="textColor" red="0.1" green="0.1" blue="0.1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userLabel="Desc" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d-desc">
+                                                            <rect key="frame" x="16" y="54" width="325" height="42"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" red="0.15" green="0.15" blue="0.15" alpha="0.85" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userLabel="Date" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d-date">
+                                                            <rect key="frame" x="16" y="110" width="200" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="0.2" green="0.2" blue="0.2" alpha="0.7" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userLabel="Status" hidden="YES" contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="d-status">
+                                                            <rect key="frame" x="0" y="0" width="1" height="1"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstItem="d-title" firstAttribute="leading" secondItem="d-card" secondAttribute="leading" constant="16" id="d-tl"/>
+                                                        <constraint firstAttribute="trailing" secondItem="d-title" secondAttribute="trailing" constant="16" id="d-tr"/>
+                                                        <constraint firstItem="d-title" firstAttribute="top" secondItem="d-card" secondAttribute="top" constant="16" id="d-tt"/>
+                                                        <constraint firstItem="d-desc" firstAttribute="leading" secondItem="d-title" secondAttribute="leading" id="d-dl"/>
+                                                        <constraint firstItem="d-desc" firstAttribute="trailing" secondItem="d-title" secondAttribute="trailing" id="d-dr"/>
+                                                        <constraint firstItem="d-desc" firstAttribute="top" secondItem="d-title" secondAttribute="bottom" constant="6" id="d-dt"/>
+                                                        <constraint firstItem="d-date" firstAttribute="leading" secondItem="d-title" secondAttribute="leading" id="d-dal"/>
+                                                        <constraint firstItem="d-date" firstAttribute="bottom" secondItem="d-card" secondAttribute="bottom" constant="-16" id="d-dab"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="d-card" firstAttribute="width" constant="357" id="d-cw"/>
+                                                <constraint firstItem="d-card" firstAttribute="height" constant="153" id="d-chh"/>
+                                                <constraint firstItem="d-card" firstAttribute="centerX" secondItem="cnt-done" secondAttribute="centerX" id="d-ccx"/>
+                                                <constraint firstItem="d-card" firstAttribute="centerY" secondItem="cnt-done" secondAttribute="centerY" id="d-ccy"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="cardView" destination="d-card" id="out-d-card"/>
+                                            <outlet property="titleLabel" destination="d-title" id="out-d-title"/>
+                                            <outlet property="detailLabel" destination="d-desc" id="out-d-desc"/>
+                                            <outlet property="dateLabel" destination="d-date" id="out-d-date"/>
+                                            <outlet property="statusLabel" destination="d-status" id="out-d-status"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="done-vc" id="done-ds"/>
+                                    <outlet property="delegate" destination="done-vc" id="done-dl"/>
+                                </connections>
+                            </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="done-empty">
+                                <rect key="frame" x="80" y="276" width="233" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userLabel="DoneIcon" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.seal" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="d-eimg">
+                                        <rect key="frame" x="41.666666666666657" y="19.333333333333336" width="150" height="151.33333333333331"/>
+                                        <color key="tintColor" white="0.6666666666" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="d-eih"/>
+                                            <constraint firstAttribute="width" constant="150" id="d-eiw"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userLabel="EmptyLabel" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check things off!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d-etxt">
+                                        <rect key="frame" x="0.0" y="190" width="233" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                        <color key="textColor" white="0.6666666666" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="d-eimg" firstAttribute="centerX" secondItem="done-empty" secondAttribute="centerX" id="d-eicx"/>
+                                    <constraint firstItem="d-eimg" firstAttribute="top" secondItem="done-empty" secondAttribute="top" constant="20" id="d-eit"/>
+                                    <constraint firstItem="d-etxt" firstAttribute="top" secondItem="d-eimg" secondAttribute="bottom" constant="20" id="d-et"/>
+                                    <constraint firstItem="d-etxt" firstAttribute="width" secondItem="done-empty" secondAttribute="width" id="d-etw"/>
+                                    <constraint firstItem="d-etxt" firstAttribute="centerX" secondItem="done-empty" secondAttribute="centerX" id="d-etcx"/>
+                                    <constraint firstAttribute="height" constant="300" id="d-eh"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="done-safe-area"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="done-table" firstAttribute="top" secondItem="done-view" secondAttribute="top" id="d-vbt"/>
+                            <constraint firstItem="done-table" firstAttribute="leading" secondItem="done-view" secondAttribute="leading" id="d-vbl"/>
+                            <constraint firstItem="done-table" firstAttribute="trailing" secondItem="done-view" secondAttribute="trailing" id="d-vbr"/>
+                            <constraint firstItem="done-table" firstAttribute="bottom" secondItem="done-view" secondAttribute="bottom" id="d-vbb"/>
+                            <constraint firstItem="done-empty" firstAttribute="centerX" secondItem="done-view" secondAttribute="centerX" id="d-vex"/>
+                            <constraint firstItem="done-empty" firstAttribute="centerY" secondItem="done-view" secondAttribute="centerY" id="d-vey"/>
+                            <constraint firstItem="done-empty" firstAttribute="leading" secondItem="done-safe-area" secondAttribute="leading" constant="80" id="d-vel"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Done" id="done-nav-item"/>
+                    <connections>
+                        <outlet property="tableView" destination="done-table" id="out-done-table"/>
+                        <outlet property="prioritySegmentedControl" destination="d-filter" id="out-d-filt"/>
+                        <outlet property="emptyStateView" destination="done-empty" id="out-done-empty"/>
+                        <outlet property="statusImageView" destination="d-eimg" id="out-d-eimg-v2"/>
+                        <outlet property="statusLabel" destination="d-etxt" id="out-d-etxt-v2"/>
+                        <segue destination="nav-add" kind="presentation" identifier="showAdd" id="segue-done-add"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="done-mask" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="600" y="1200"/>
+        </scene>
+        <!-- Navigation In Progress -->
+        <scene sceneID="nav-inprogress-scene">
+            <objects>
+                <navigationController id="nav-inprogress" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="In Progress" image="hourglass" catalog="system" id="tab-inprogress-item"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nav-inprogress-bar">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="inprogress-vc" kind="relationship" relationship="rootViewController" id="rel-inprogress-root"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nav-inprogress-mask" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-200" y="800"/>
+        </scene>
+
+        <!-- In Progress View Controller -->
+        <scene sceneID="inprogress-scene">
+            <objects>
+                <viewController id="inprogress-vc" customClass="InProgressViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="inprogress-view">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="170" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="inprogress-table">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" red="0.949" green="0.945" blue="0.976" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="ip-header">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ip-filter">
+                                            <rect key="frame" x="16" y="10" width="361" height="31"/>
+                                            <segments>
+                                                <segment title="All"/>
+                                                <segment title="Low"/>
+                                                <segment title="Mid"/>
+                                                <segment title="High"/>
+                                            </segments>
+                                            <connections>
+                                                <action selector="priorityFilterChanged:" destination="inprogress-vc" eventType="valueChanged" id="ip-act-filt"/>
+                                            </connections>
+                                        </segmentedControl>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="ip-filter" firstAttribute="leading" secondItem="ip-header" secondAttribute="leading" constant="16" id="ipf-l"/>
+                                        <constraint firstAttribute="trailing" secondItem="ip-filter" secondAttribute="trailing" constant="16" id="ipf-r"/>
+                                        <constraint firstItem="ip-filter" firstAttribute="centerY" secondItem="ip-header" secondAttribute="centerY" id="ipf-c"/>
+                                    </constraints>
+                                </view>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TaskCell" id="cell-inprogress" customClass="TaskCell">
+                                        <rect key="frame" x="0.0" y="100" width="393" height="170"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cell-inprogress" id="cnt-inprogress">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="170"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ip-card">
+                                                    <rect key="frame" x="18" y="8.5" width="357" height="153"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userLabel="Title" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="1" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ip-title">
+                                                            <rect key="frame" x="16" y="16" width="325" height="32"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userLabel="Desc" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ip-desc">
+                                                            <rect key="frame" x="16" y="54" width="325" height="42"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" white="1" alpha="0.85" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userLabel="Date" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ip-date">
+                                                            <rect key="frame" x="16" y="110" width="200" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                            <color key="textColor" white="1" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userLabel="Status" contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="ip-status">
+                                                            <rect key="frame" x="250" y="110" width="90" height="20"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="11"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.424" green="0.388" blue="1.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="ip-title" firstAttribute="leading" secondItem="ip-card" secondAttribute="leading" constant="16" id="ip-tl"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ip-title" secondAttribute="trailing" constant="16" id="ip-tr"/>
+                                                        <constraint firstItem="ip-title" firstAttribute="top" secondItem="ip-card" secondAttribute="top" constant="16" id="ip-tt"/>
+                                                        <constraint firstItem="ip-desc" firstAttribute="leading" secondItem="ip-title" secondAttribute="leading" id="ip-dl"/>
+                                                        <constraint firstItem="ip-desc" firstAttribute="trailing" secondItem="ip-title" secondAttribute="trailing" id="ip-dr"/>
+                                                        <constraint firstItem="ip-desc" firstAttribute="top" secondItem="ip-title" secondAttribute="bottom" constant="6" id="ip-dt"/>
+                                                        <constraint firstItem="ip-date" firstAttribute="leading" secondItem="ip-title" secondAttribute="leading" id="ip-dal"/>
+                                                        <constraint firstItem="ip-date" firstAttribute="bottom" secondItem="ip-card" secondAttribute="bottom" constant="-16" id="ip-dab"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="ip-card" firstAttribute="width" constant="357" id="ip-cw"/>
+                                                <constraint firstItem="ip-card" firstAttribute="height" constant="153" id="ip-ch"/>
+                                                <constraint firstItem="ip-card" firstAttribute="centerX" secondItem="cnt-inprogress" secondAttribute="centerX" id="ip-ccx"/>
+                                                <constraint firstItem="ip-card" firstAttribute="centerY" secondItem="cnt-inprogress" secondAttribute="centerY" id="ip-ccy"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="cardView" destination="ip-card" id="out-ip-card"/>
+                                            <outlet property="titleLabel" destination="ip-title" id="out-ip-title"/>
+                                            <outlet property="detailLabel" destination="ip-desc" id="out-ip-desc"/>
+                                            <outlet property="dateLabel" destination="ip-date" id="out-ip-date"/>
+                                            <outlet property="statusLabel" destination="ip-status" id="out-ip-status"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="inprogress-vc" id="inprogress-ds"/>
+                                    <outlet property="delegate" destination="inprogress-vc" id="inprogress-dl"/>
+                                </connections>
+                            </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="inprogress-empty">
+                                <rect key="frame" x="80" y="276" width="233" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hourglass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ip-eimg">
+                                        <rect key="frame" x="41.5" y="20" width="150" height="150"/>
+                                        <color key="tintColor" red="0.424" green="0.388" blue="1.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="ip-eih"/>
+                                            <constraint firstAttribute="width" constant="150" id="ip-eiw"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userLabel="EmptyLabel" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing in progress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ip-etxt">
+                                        <rect key="frame" x="0.0" y="190" width="233" height="27"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                        <color key="textColor" red="0.424" green="0.388" blue="1.0" alpha="0.6" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ip-eimg" firstAttribute="centerX" secondItem="inprogress-empty" secondAttribute="centerX" id="ip-eicx"/>
+                                    <constraint firstItem="ip-eimg" firstAttribute="top" secondItem="inprogress-empty" secondAttribute="top" constant="20" id="ip-eit"/>
+                                    <constraint firstItem="ip-etxt" firstAttribute="top" secondItem="ip-eimg" secondAttribute="bottom" constant="20" id="ip-et"/>
+                                    <constraint firstItem="ip-etxt" firstAttribute="width" secondItem="inprogress-empty" secondAttribute="width" id="ip-etw"/>
+                                    <constraint firstItem="ip-etxt" firstAttribute="centerX" secondItem="inprogress-empty" secondAttribute="centerX" id="ip-etcx"/>
+                                    <constraint firstAttribute="height" constant="300" id="ip-eh"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="inprogress-safe-area"/>
+                        <color key="backgroundColor" red="0.949" green="0.945" blue="0.976" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="inprogress-table" firstAttribute="top" secondItem="inprogress-view" secondAttribute="top" id="ip-vbt"/>
+                            <constraint firstItem="inprogress-table" firstAttribute="leading" secondItem="inprogress-view" secondAttribute="leading" id="ip-vbl"/>
+                            <constraint firstItem="inprogress-table" firstAttribute="trailing" secondItem="inprogress-view" secondAttribute="trailing" id="ip-vbr"/>
+                            <constraint firstItem="inprogress-table" firstAttribute="bottom" secondItem="inprogress-view" secondAttribute="bottom" id="ip-vbb"/>
+                            <constraint firstItem="inprogress-empty" firstAttribute="centerX" secondItem="inprogress-view" secondAttribute="centerX" id="ip-vcx"/>
+                            <constraint firstItem="inprogress-empty" firstAttribute="centerY" secondItem="inprogress-view" secondAttribute="centerY" id="ip-vcy"/>
+                            <constraint firstItem="inprogress-empty" firstAttribute="leading" secondItem="inprogress-safe-area" secondAttribute="leading" constant="80" id="ip-vel"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="In Progress" id="inprogress-nav-item"/>
+                    <connections>
+                        <outlet property="tableView" destination="inprogress-table" id="out-inprogress-table"/>
+                        <outlet property="prioritySegmentedControl" destination="ip-filter" id="out-ip-filt"/>
+                        <outlet property="emptyStateView" destination="inprogress-empty" id="out-inprogress-empty"/>
+                        <outlet property="statusImageView" destination="ip-eimg" id="out-ip-eimg-v2"/>
+                        <outlet property="statusLabel" destination="ip-etxt" id="out-ip-etxt-v2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="inprogress-mask" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="600" y="800"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="tray.fill" catalog="system" width="128" height="88"/>
+        <image name="checklist" catalog="system" width="128" height="107"/>
+        <image name="hourglass" catalog="system" width="128" height="107"/>
+        <image name="checkmark.seal" catalog="system" width="128" height="124"/>
+    </resources>
+</document>
